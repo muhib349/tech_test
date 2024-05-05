@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:tech_test/core/base_controller.dart';
 import 'package:tech_test/data/models/response/news_item.dart';
+import 'package:tech_test/data/network/exceptions/api_exception.dart';
+import 'package:tech_test/data/network/exceptions/app_exception.dart';
 import 'package:tech_test/repository/news_repository.dart';
 
 class NewsDetailsController extends BaseController {
@@ -9,6 +11,7 @@ class NewsDetailsController extends BaseController {
   NewsDetailsController(this.repository);
 
   final newsItem = NewsItem().obs;
+  var errorMessage = "".obs;
 
   String newsId = "";
   @override
@@ -21,9 +24,17 @@ class NewsDetailsController extends BaseController {
   }
 
   void getNewsById() async {
-    isLoading.value = true;
-    var response = await repository.getNewsById(newsId);
-    newsItem.value = response.data?.content ?? NewsItem();
-    isLoading.value = false;
+    try{
+      isLoading.value = true;
+      var response = await repository.getNewsById(newsId);
+      newsItem.value = response.data?.content ?? NewsItem();
+      isLoading.value = false;
+    }on ApiException catch(exception){
+      errorMessage.value = exception.message;
+    } on AppException catch (exception){
+      errorMessage.value = exception.message;
+    }catch(e){
+      e.printError();
+    }
   }
 }

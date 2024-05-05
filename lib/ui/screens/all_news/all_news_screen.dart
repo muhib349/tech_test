@@ -38,6 +38,10 @@ class _AllNewsScreenState extends State<AllNewsScreen> {
       body: Obx(() {
         if(_controller.isLoading.value && _controller.isFirstFetched){
           return const LoadingWidget();
+        }else if(_controller.errorMessage.isNotEmpty){
+          return Center(
+            child: Text(_controller.errorMessage.value),
+          );
         }
         return ListView.builder(
           itemCount: _controller.news.length + (_controller.isLoading.value ? 1 : 0),

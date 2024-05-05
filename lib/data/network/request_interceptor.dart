@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:tech_test/utils/constant.dart';
 
 class RequestInterceptor extends InterceptorsWrapper{
-
-  final String token = "c6137b1f-04d1-406d-9dcd-0f3214026a6a";
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
 
-    options.queryParameters.addAll({'api-key': token});
+    options.queryParameters.addAll({apiKey: token});
     return super.onRequest(options, handler);
   }
 }

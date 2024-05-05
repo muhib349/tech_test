@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tech_test/data/network/request_interceptor.dart';
+import 'package:tech_test/utils/constant.dart';
 
 class Api {
   final dio = createDio();
@@ -12,7 +14,7 @@ class Api {
   factory Api() => _singleton;
 
   static final baseOption = BaseOptions(
-  baseUrl: "https://content.guardianapis.com",
+  baseUrl: baseURL,
   receiveTimeout: const Duration(milliseconds: 15000),
   connectTimeout: const Duration(milliseconds: 15000),
   );
@@ -22,13 +24,16 @@ class Api {
       baseOption,
     );
     dio.interceptors.add(RequestInterceptor());
-    dio.interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      compact: false,
-    ));
+
+    if(!kReleaseMode){
+      dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        compact: false,
+      ));
+    }
     return dio;
   }
 

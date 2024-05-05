@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tech_test/bindings/initial_bindings.dart';
 import 'package:tech_test/routes/routes.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      initialBinding: InitialBindings(),
       initialRoute: '/',
       getPages: routes,
     );

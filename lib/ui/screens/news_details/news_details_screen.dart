@@ -19,6 +19,10 @@ class NewsDetailsScreen extends StatelessWidget {
       body: Obx((){
         if(_controller.isLoading.value){
           return const LoadingWidget();
+        }else if(_controller.errorMessage.isNotEmpty){
+          return Center(
+            child: Text(_controller.errorMessage.value),
+          );
         }
         var newsItem = _controller.newsItem.value;
 
@@ -28,15 +32,15 @@ class NewsDetailsScreen extends StatelessWidget {
             child: Text(
                 "id : ${newsItem.id}\n"
                     "type: ${newsItem.type}\n"
-                "sectionId: ${newsItem.sectionId}\n"
-                "sectionName: ${newsItem.sectionName}\n"
-                "webPublicationDate: ${newsItem.webPublicationDate}\n"
-                "webTitle: ${newsItem.webTitle}\n"
-                "webUrl: ${newsItem.webUrl}\n"
-                "apiUrl: ${newsItem.apiUrl}\n"
-                "isHosted: ${newsItem.isHosted}\n"
-                "pillarId: ${newsItem.pillarId}\n"
-                "pillarName: ${newsItem.pillarName}\n"
+                    "sectionId: ${newsItem.sectionId}\n"
+                    "sectionName: ${newsItem.sectionName}\n"
+                    "webPublicationDate: ${newsItem.webPublicationDate}\n"
+                    "webTitle: ${newsItem.webTitle}\n"
+                    "webUrl: ${newsItem.webUrl}\n"
+                    "apiUrl: ${newsItem.apiUrl}\n"
+                    "isHosted: ${newsItem.isHosted}\n"
+                    "pillarId: ${newsItem.pillarId}\n"
+                    "pillarName: ${newsItem.pillarName}\n"
             ),
           ),
         );
